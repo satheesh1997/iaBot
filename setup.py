@@ -7,6 +7,10 @@ to build or install the project.
 import setuptools
 
 
+with open("requirements.txt", "r") as fh:
+    requirements = fh.read().split("\n")
+
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
@@ -18,9 +22,9 @@ setuptools.setup(
     author_email="satheesh.101097@gmail.com",
     description="A mini framework for building bots using python which can help you in automating your tasks",
     long_description=long_description,
-    long_description_content_type="text/markdown",
     url="https://github.com/satheesh1997/iaBot",
     packages=["iabot"],
+    install_requires=requirements,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
