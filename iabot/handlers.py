@@ -5,17 +5,16 @@ class BaseHandler(object):
     def clean_response(self, resp):
         return resp
 
-    def dispath(self, action, data):
+    def dispatch(self, action, data):
         if type(data) is not dict:
             resp = {
                 "status": ACTION_ERROR,
                 "response": {"message": "Data must be of type for smooth dispatch"},
             }
         else:
-            try:
+            if hasattr(self, action):
                 dispatch_action = getattr(self, action)
-            except Exception as e:
-                print(e)
+            else:
                 dispatch_action = getattr(self, "not_found")
 
             resp = dispatch_action(data)
@@ -29,12 +28,18 @@ class BaseHandler(object):
         }
 
 
-class NotFound(BaseHandler):
+class NotFoundHandler(BaseHandler):
+
+    handle = "notfound"
+
     def dispatch(self, *args, **kwargs):
         return "Handler not registered in the bot"
 
 
-class System(BaseHandler):
+class SystemInformationHandler(BaseHandler):
+
+    handle = "system"
+
     def time(self, *args, **kwargs):
         import time
 
