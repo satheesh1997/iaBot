@@ -1,26 +1,33 @@
-from iabot.handler import NotFound
+from iabot.handlers import NotFoundHandler
 
 
 class CreateBot(object):
     __handlers = {}
 
     def __init__(self, handlers):
-        if not type(handlers) == "list":
+        if not type(handlers) == list:
             raise Exception("Handlers must be of type list")
 
         for handler in handlers:
             self.__register_handler(handler)
 
     def __register_handler(self, handler):
-        if handler.__name__ in self.__handlers:
+        if not hasattr(handler, "handle"):
+            raise Exception(f"Handler {handler.__name__} has no attribute handle")
+        if not type(handler.handle) == str:
+            raise AttributeError(
+                f"Handler {handler.__name__} attr handle must be of type str"
+            )
+        if handler.handle in self.__handlers:
             raise Exception(
                 f"Trying to register duplicate handler for name {handler.__name__}"
             )
 
-        self.__handlers[handler.__name__.lower()] = handler()
+        handle_name = handler.handle.lower()
+        self.__handlers[handle_name] = handler()
 
     def __get_handler(self, handler_name):
-        return self.__handlers.get(handler_name.lower(), NotFound())
+        return self.__handlers.get(handler_name.lower(), NotFoundHandler())
 
     def on_message(self, message):
         handler = self.__get_handler(message.get("handler", "not_found"))
