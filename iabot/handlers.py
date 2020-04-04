@@ -1,4 +1,4 @@
-from iabot.constants import ACTION_ERROR
+from iabot.constants import ACTION_ERROR, ACTION_OK
 
 
 class BaseHandler(object):
@@ -26,4 +26,22 @@ class BaseHandler(object):
         return {
             "status": ACTION_ERROR,
             "response": {"message": "Action not defined in the handler"},
+        }
+
+
+class System(BaseHandler):
+    def time(self, *args, **kwargs):
+        import time
+
+        return {
+            "status": ACTION_OK,
+            "response": {"message": time.strftime("%l:%M%p %Z")},
+        }
+
+    def date(self, *args, **kwargs):
+        import time
+
+        return {
+            "status": ACTION_OK,
+            "response": {"message": time.strftime("%b %d, %Y")},
         }
