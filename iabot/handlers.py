@@ -29,6 +29,11 @@ class BaseHandler(object):
         }
 
 
+class NotFound(BaseHandler):
+    def dispatch(self, *args, **kwargs):
+        return "Handler not registered in the bot"
+
+
 class System(BaseHandler):
     def time(self, *args, **kwargs):
         import time
