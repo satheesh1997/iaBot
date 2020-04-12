@@ -29,7 +29,10 @@ class CreateBot(object):
     def __get_handler(self, handler_name):
         return self.__handlers.get(handler_name.lower(), NotFoundHandler())
 
-    def on_message(self, message):
+    def on_message(self, message=None):
+        if not message:
+            message = {}
+
         handler = self.__get_handler(message.get("handler", "not_found"))
         action = message.get("action", "not_found")
         data = message.get("data", {})
