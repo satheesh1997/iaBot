@@ -56,11 +56,11 @@ Once you create a handler with the actions you can register it to a bot by addin
 ### Actions
 These are functions that a bot can execute to do the job when asked for. In the above StockHandler, get_stocks is an action. The response of all the actions should be a dictionary.
 
-When a request reaches the server it will execute the particular action inside the handler. You can also send some additional data to your actions by passing it as a dict using data key in the request data.
+When a request reaches the server it will execute the particular action inside the handler. You can also send some additional data to your actions by passing it as a dict using data key in the request data. Remember a handler should always return a dict.
 
 ```json
 {
-  "handle": "stock",
+  "handler": "stock",
   "action": "get_stocks",
   "data": {
      "date": "04-5-2010"
