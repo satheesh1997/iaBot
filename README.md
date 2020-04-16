@@ -7,7 +7,7 @@ iaBot is a Python library for creating simple bots and serving it with the diffe
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
 ```bash
-pip install iabot
+pip install iaBot
 ```
 
 ## A simple bot
