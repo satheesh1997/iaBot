@@ -17,7 +17,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="iaBot",
-    version="0.0.3",
+    version="0.0.4",
     author="Satheesh Kumar",
     author_email="satheesh.101097@gmail.com",
     description="A mini framework for building bots using python and can be served using different ways.",
