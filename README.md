@@ -2,7 +2,11 @@
 
 iaBot is a Python library for creating simple bots and serving it with the different ways available.
 
+
 [![PyPI version](https://badge.fury.io/py/iaBot.svg)](https://badge.fury.io/py/iaBot)
+
+
+
 
 ## Installation
 
