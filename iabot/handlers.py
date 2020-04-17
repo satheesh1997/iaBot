@@ -45,7 +45,7 @@ class SystemInformationHandler(BaseHandler):
 
         return {
             "status": ACTION_OK,
-            "response": {"message": time.strftime("%l:%M%p %Z")},
+            "response": {"message": time.strftime("%I:%M%p %Z")},
         }
 
     def date(self, *args, **kwargs):
