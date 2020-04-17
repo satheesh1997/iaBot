@@ -3,14 +3,14 @@
 iaBot is a Python library for creating simple bots and serving it with the different ways available.
 
 
-[![PyPI version](https://badge.fury.io/py/iaBot.svg)](https://badge.fury.io/py/iaBot)
+[![PyPI version](https://badge.fury.io/py/iaBot.svg)](https://badge.fury.io/py/iaBot) ![Build](https://github.com/satheesh1997/iaBot/workflows/Build%20&%20Publish/badge.svg)
 
 
 
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install iaBot.
 
 ```bash
 pip install iaBot
