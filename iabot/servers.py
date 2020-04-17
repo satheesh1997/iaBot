@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
+import asyncio
+import json
+import signal
+import websockets
 
 from flask import Flask
 
 from iabot.actions import FlaskEndPointAction
-
-import asyncio
-import websockets
-import json
+from iabot.constants import ACTION_ERROR
 
 
 class AbstractServer(ABC):
@@ -33,13 +34,26 @@ class HTTPServer(AbstractServer):
 
 class WebsocketServer(AbstractServer):
     def __init__(self, bot, port=8000):
-        self.server = websockets.serve(self.echo, "localhost", port)
         self.bot = bot
+        self.loop = asyncio.get_event_loop()
+        self.port = port
 
-    async def echo(self, websocket, path):
+    async def create_server(self, stop):
+        async with websockets.serve(self.echo, "0.0.0.0", self.port):
+            await stop
+
+    async def echo(self, websocket):
         async for message in websocket:
-            await websocket.send(json.dumps(self.bot.on_message(json.loads(message))))
+            try:
+                response_load = self.bot.on_message(json.loads(message))
+            except json.decoder.JSONDecodeError as e:
+                response_load = {"status": ACTION_ERROR, "message": str(e)}
+            await websocket.send(json.dumps(response_load))
 
     def run(self):
-        asyncio.get_event_loop().run_until_complete(self.server)
-        asyncio.get_event_loop().run_forever()
+        stop = self.loop.create_future()
+        try:
+            self.loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
+        except NotImplementedError:
+            pass
+        self.loop.run_until_complete(self.create_server(stop))
