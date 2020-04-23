@@ -1,4 +1,4 @@
-from iabot.handlers import NotFoundHandler
+from iabot.handlers import BaseHandler, NotFoundHandler
 
 
 class CreateBot(object):
@@ -12,6 +12,10 @@ class CreateBot(object):
             self.__register_handler(handler)
 
     def __register_handler(self, handler):
+        if not issubclass(handler, BaseHandler):
+            raise Exception(
+                f"Handler {handler.__name__} must be a subclass of BaseHandler"
+            )
         if not hasattr(handler, "handle"):
             raise Exception(f"Handler {handler.__name__} has no attribute handle")
         if not type(handler.handle) == str:
